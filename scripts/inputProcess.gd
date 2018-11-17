@@ -7,6 +7,7 @@ var pressed = false # pra saber se estamos pressionando a tela
 var drag = false # pra saber se estamos arrastando o dedo na tela
 var currentPosition = Vector2(0,0)
 var oldPosition = Vector2(0,0)
+var over = false
 
 
 func _ready():
@@ -16,7 +17,7 @@ func _ready():
 
 func _fixed_process(delta):
 	update()
-	if drag and currentPosition != oldPosition and oldPosition != Vector2(0,0):
+	if drag and currentPosition != oldPosition and oldPosition != Vector2(0,0) and not over:
 		#para cria os arraycast setas dinamicas pela tela
 		#chama uma funcao despacial 2d do mundo e a direçao que isto esta
 		var space_state = get_world_2d().get_direct_space_state()
@@ -67,7 +68,7 @@ func _on_limitTimer_timeout():
 	released()
 
 func _draw():
-	if drag and currentPosition != oldPosition and oldPosition != Vector2(0,0):
+	if drag and currentPosition != oldPosition and oldPosition != Vector2(0,0) and not over:
 		draw_line(currentPosition, oldPosition, Color(1,0,0), 10)
 
 

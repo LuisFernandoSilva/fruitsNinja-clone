@@ -7,7 +7,7 @@ onready var sprite1 = get_node("body1/sprite1")
 onready var body2 = get_node("body2")
 onready var sprite2 = get_node("body2/sprite2")
 
-var cut = false
+var cutter = false
 signal score
 signal life
 
@@ -40,8 +40,9 @@ func born(initPos):
 	set_angular_velocity(rand_range(-10, 10))
 
 func cut():
-	if cut: return 
-	cut = true 
+	if cutter:
+		return 
+	cutter = true 
 	emit_signal("score")
 	set_mode(MODE_KINEMATIC)# faz o corpo da pear ficar parado
 	sprite0.queue_free()

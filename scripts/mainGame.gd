@@ -10,8 +10,10 @@ var lemon = preload("res://scenes/lemon.tscn")
 var pineapple = preload("res://scenes/pineapple.tscn")
 var watermelon = preload("res://scenes/watermelon.tscn")
 var tomato = preload("res://scenes/tomato.tscn")
+var bomb = preload("res://scenes/bomb.tscn")
 
-
+var score = 0
+var life = 3
 
 
 func _ready():
@@ -21,8 +23,10 @@ func _ready():
 
 
 func _on_generator_timeout():
+	if life <= 0:
+		return 
 	for i in range(0, rand_range(1,2)):# faz o for de quantas frutas vai aparecer na tela
-		var type = int(rand_range(0,8))#faz o randomico do tipo
+		var type = int(rand_range(0,9))#faz o randomico do tipo
 		var obj
 		if type == 0:
 			obj = pear.instance()
@@ -41,8 +45,31 @@ func _on_generator_timeout():
 		elif type == 7:
 			obj = tomato.instance()
 		elif type == 8:
-			obj = orange.instance()
+			obj = bomb.instance()
 		
 		obj.born(Vector2(rand_range(200,1080),800))
+		obj.connect("life", self, "dec_life")
+		if type !=8:
+			obj.connect("score", self, "inc_score")
 		
 		fruits.add_child(obj)
+
+func dec_life():
+	life -= 1
+	if life == 2:
+		get_node("control/bomb3").set_modulate(Color(1,0,0))
+	elif life == 1:
+		get_node("control/bomb2").set_modulate(Color(1,0,0))
+	elif life == 0:
+		get_node("gameOver").start()
+		get_node("control/bomb1").set_modulate(Color(1,0,0))
+		get_node("inputProcess").over = true 
+	
+	
+func inc_score():
+	if life == 0:
+		return 
+	
+	score += 1
+	get_node("control/score").set_text(str(score))
+	
