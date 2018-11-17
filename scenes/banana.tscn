@@ -6,11 +6,14 @@
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 66.9857
+radius = 53.8425
 
 [node name="banana" type="RigidBody2D"]
 
 input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 0.726625, 3.22775, 36.0444 )
+shapes/0/trigger = true
 collision/layers = 1
 collision/mask = 1
 mode = 0
@@ -37,7 +40,8 @@ texture = ExtResource( 2 )
 
 [node name="collisionShape" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 2, 7 )
+transform/pos = Vector2( 3.22775, 36.0444 )
+transform/scale = Vector2( 1, 0.726625 )
 shape = SubResource( 1 )
 trigger = true
 _update_shape_index = 0
@@ -94,7 +98,7 @@ damp_override/angular = -1.0
 
 [node name="sprite2" type="Sprite" parent="body2"]
 
-transform/pos = Vector2( 35, 0 )
+transform/pos = Vector2( 35, -2.45547 )
 transform/scale = Vector2( 0.3, 0.3 )
 texture = ExtResource( 2 )
 region = true

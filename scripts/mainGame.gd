@@ -21,7 +21,7 @@ func _ready():
 
 
 func _on_generator_timeout():
-	for i in range(0, rand_range(1,8)):# faz o for de quantas frutas vai aparecer na tela
+	for i in range(0, rand_range(1,2)):# faz o for de quantas frutas vai aparecer na tela
 		var type = int(rand_range(0,8))#faz o randomico do tipo
 		var obj
 		if type == 0:

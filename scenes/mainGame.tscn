@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://scripts/mainGame.gd" type="Script" id=1]
 [ext_resource path="res://assets/bgfruitninja.jpg" type="Texture" id=2]
+[ext_resource path="res://scripts/inputProcess.gd" type="Script" id=3]
 
 [node name="mainGame" type="Node2D"]
 
@@ -23,6 +24,28 @@ wait_time = 1.0
 one_shot = false
 autostart = true
 
+[node name="inputProcess" type="Node2D" parent="."]
+
+script/script = ExtResource( 3 )
+
+[node name="intervalTimer" type="Timer" parent="inputProcess"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = false
+autostart = false
+
+[node name="limitTimer" type="Timer" parent="inputProcess"]
+
+process_mode = 1
+wait_time = 2.0
+one_shot = false
+autostart = false
+
 [connection signal="timeout" from="generator" to="." method="_on_generator_timeout"]
+
+[connection signal="timeout" from="inputProcess/intervalTimer" to="inputProcess" method="_on_intervalTimer_timeout"]
+
+[connection signal="timeout" from="inputProcess/limitTimer" to="inputProcess" method="_on_limiteTimer_timeout"]
 
 
